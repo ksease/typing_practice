@@ -1,0 +1,133 @@
+/* Reset some default spacing */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Body and general layout */
+  body {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    text-align: center;
+  }
+  
+  /* Navigation bar (hotbar) */
+  .hotbar {
+    background-color: #333;
+    padding: 15px 0;
+  }
+  
+  .hotbar a {
+    color: white; 
+    margin: 15px;
+    font-weight: bold;
+    transition: color 0.3s;
+  }
+  
+  .hotbar a:hover {
+    color: #ffcc00;
+  }
+  
+  /* Main headings */
+  h1 {
+    margin-bottom: 10px;
+    color: #2c3e50;
+  }
+  
+  h2 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  
+  /* Typing container */
+  #typing-container {
+    background-color: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* Textarea */
+  #typing-box {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.1rem;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    resize: none;
+    margin-top: 15px;
+  }
+  
+  /* Volume slider */
+  #volume-container {
+    margin: 30px auto;
+    width: fit-content;
+    background: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  }
+  
+  #volume {
+    width: 200px;
+    margin-left: 10px;
+  }
+  
+  /* Keyboard display */
+  #keyboard {
+    margin-top: 30px;
+  }
+  
+  .key-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  
+  .key {
+    background-color: #e0e0e0;
+    padding: 15px 20px;
+    margin: 4px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+    cursor: default;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.key.active {
+  background-color: #0d96f2;
+  color: white;
+  transform: scale(1.1);
+}
+
+  .spacebar {
+    flex: 0.3;
+  }
+  
+  /* Buttons */
+  #button-field {
+    margin-top: 40px;
+  }
+  
+  #button-field button {
+    background-color: #0d96f2;
+    border: none;
+    color: white;
+    padding: 12px 25px;
+    margin: 10px;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  #button-field button:hover {
+    background-color: #2980b9;
+  }
+  

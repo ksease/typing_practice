@@ -2,16 +2,15 @@
 <html>
 <head>
   <title>Typing Practice</title>
-  <link rel="stylesheet" href="stylesheet.css">
-  <script src="script.js"></script>
+  <link rel="stylesheet" href="style2.css">
 </head>
 
 <body>
 
   <div class="hotbar">
-    <a href="resources.html" style="color: white; margin: 0 15px;">Resources</a>
-    <a href="index.html" style="color: white; margin: 0 15px;">Home</a>
-    <a href="#" style="color: white; margin: 0 15px;">Contact</a>
+    <a href="resources.html">Resources</a>
+    <a href="index.html">Home</a>
+    <a href="#">Contact</a>
   </div>
 
   <h1>Type Zone - A Practice Website</h1>
@@ -73,6 +72,12 @@
     </div>
   </div>
 
+
+<div id="volume-container">
+  <label for="volume">Volume:</label>
+  <input type="range" id="volume" min="0" max="1" step="0.01" value="1">
+</div>
+
   <div id="button-field">
     <button onclick="location.href='practice.html'">Challenge</button>
     <button onclick="location.href='minigame.html'">Mini-Games</button>
@@ -80,5 +85,8 @@
   </div>
 
 
+
+  
+<script src="script.js"></script>
 </body>
 </html>

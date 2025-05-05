@@ -101,3 +101,31 @@ function startWPM() {
       keyElement.classList.remove('active');
     }
   });
+
+  // JavaScript
+const clickSounds = [
+  new Audio("sounds/click1.mp3"),
+  new Audio("sounds/click2.mp3"),
+  new Audio("sounds/click3.mp3"),
+  new Audio("sounds/click4.mp3"),
+  new Audio("sounds/click5.mp3")
+];
+
+let currentVolume = 1.0; // Default volume
+
+const volumeSlider = document.getElementById("volume");
+volumeSlider.addEventListener("input", (e) => {
+  currentVolume = parseFloat(e.target.value); // Ensure it's a number
+  console.log("Volume set to:", currentVolume); // Debug check
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.repeat) return;
+
+  const randomIndex = Math.floor(Math.random() * clickSounds.length);
+  const sound = clickSounds[randomIndex];
+
+  const soundClone = sound.cloneNode(); // Clone for independent playback
+  soundClone.volume = currentVolume;    // Apply current volume
+  soundClone.play().catch(err => console.error("Play error:", err));
+});
