@@ -286,4 +286,11 @@ tr:hover {
     margin-bottom: 1.5rem;
     color: #ccc;
   }
-  
+
+  img {
+    max-width: 20%;
+    padding: 50px;
+    margin: 0 auto;
+    height: 90%;
+    display: block;
+  }
