@@ -1,131 +1,184 @@
 window.addEventListener('DOMContentLoaded', () => {
-    const hotbar = document.querySelector('.hotbar');
-    const heading = document.querySelector('h1');
-    heading.style.marginTop = hotbar.offsetHeight + 'px';
-  });
+  const hotbar = document.querySelector('.hotbar');
+  const heading = document.querySelector('h1');
+  heading.style.marginTop = hotbar.offsetHeight + 'px';
 
- 
+  const clickSounds = [
+    new Audio("sounds/click1.mp3"),
+    new Audio("sounds/click2.mp3"),
+    new Audio("sounds/click3.mp3"),
+    new Audio("sounds/click4.mp3"),
+    new Audio("sounds/click5.mp3")
+    ];
+    
+    let currentVolume = 1.0; // Default volume
+    
+    const volumeSlider = document.getElementById("volume");
+    volumeSlider.addEventListener("input", (e) => {
+    currentVolume = parseFloat(e.target.value); 
+    console.log("Volume set to:", currentVolume);
+    });
+    
+    document.addEventListener("keydown", (e) => {
+    if (e.repeat) return;
+    
+    const randomIndex = Math.floor(Math.random() * clickSounds.length);
+    const sound = clickSounds[randomIndex];
+    
+    const soundClone = sound.cloneNode(); // Clone for independent playback
+    soundClone.volume = currentVolume;   
+    soundClone.play().catch(err => console.error("Play error:", err));
+    });
+});
 
-function wpm(){ 
-  const sampleText = document.getElementById("sample-text").textContent.trim();
-  const input = document.getElementById("typing-box");
-  const wpmDisplay = document.getElementById("wpm");
+function startWPM() {
+  const typingBox = document.getElementById("typing-box");
+  const sampleElement = document.getElementById("sample-text");
 
-  let startTime = null;
+  console.log("startWPM called")
 
-  input.addEventListener("input", () => {
-    const typed = input.value.trim();
+  sampleText = sampleElement.innerText;
+  typingBox.disabled = false;
+  typingBox.value = "";
+  typingBox.focus();
+  startTime = new Date();
 
-    if (!startTime && typed.length > 0) {
-      startTime = new Date();
+  typingBox.addEventListener("input", checkInput);
+
+}
+
+function checkInput() {
+  let testEnded = false;
+  const typingBox = document.getElementById("typing-box");
+  const typedText = typingBox.value;
+
+  console.log("checkInput called, length:", typedText.length);
+
+
+  let correctChars = 0;
+  for (let i = 0; i < typedText.length; i++) {
+    if (typedText[i] === sampleText[i]) {
+      correctChars++;
     }
+  }
+  const accuracy = ((correctChars / typedText.length) * 100).toFixed(2);
+  document.getElementById("accuracy").textContent = `Accuracy: ${accuracy}%`;
 
-    if (typed.length === 0) {
-      wpmDisplay.textContent = "WPM: 0";
-      startTime = null;
-      return;
-    }
+  if (!testEnded && typedText.length >= sampleText.length) {
+    testEnded = true;
+    endWPM();
+  }
+}
 
-    const now = new Date();
-    const elapsedTimeInMinutes = (now - startTime) / 1000 / 60;
 
-    const wordsTyped = typed.split(/\s+/).length;
-    const wpm = Math.round(wordsTyped / elapsedTimeInMinutes);
+function endWPM() {
+  const typingBox = document.getElementById("typing-box");
+  typingBox.disabled = true;
 
-    wpmDisplay.textContent = `WPM: ${wpm}`;
+  const typedText = typingBox.value;
+  console.log("Typed Text:", typedText)
+
+  typingBox.disabled = true;
+  typingBox.removeEventListener("input", checkInput);
+}
+
+document.addEventListener('keydown', (e) => {
+  const key = e.key.toLowerCase();
+  const keyElement = document.querySelector(`.key[data-key="${key}"]`);
+  if (keyElement) {
+    keyElement.classList.add('active');
+  }
+});
+
+document.addEventListener('keyup', (e) => {
+  const key = e.key.toLowerCase();
+  const keyElement = document.querySelector(`.key[data-key="${key}"]`);
+  if (keyElement) {
+    keyElement.classList.remove('active');
+  }
+});
+
+
+const layouts = {
+  qwerty:  "QWERTYUIOPASDFGHJKL;ZXCVBNM,. ",
+  dvorak:  ",.PYFGRCL/AOEUIDHTNSQJKXBMWVZ ",
+  colemak: "QWFPGJLUY;ARSTDHNEIOZXCVBKM., "
+};
+
+const defaultMap = "QWERTYUIOPASDFGHJKL;ZXCVBNM,. ";
+let currentLayout = "qwerty";
+const keys = document.querySelectorAll('.key');
+
+// Define the setLayout function globally
+function setLayout(layoutName) {
+  currentLayout = layoutName; // Set the current layout
+  const layout = layouts[layoutName];
+
+  if (!layout || layout.length !== keys.length) {
+    console.error("Invalid layout or mismatched key count.");
+    return;
+  }
+
+  keys.forEach((key, index) => {
+    const char = layout[index];
+    key.textContent = char;
   });
 }
 
-function startWPM() {
-    const typingBox = document.getElementById("typing-box");
-    const sampleElement = document.getElementById("sample-text");
-  
-    sampleText = sampleElement.innerText;
-    typingBox.disabled = false;
-    typingBox.value = "";
-    typingBox.focus();
-    startTime = new Date();
-  
-    typingBox.addEventListener("input", checkInput);
+document.addEventListener("keydown", function(event) {
+  const typingBox = document.getElementById("typing-box");
+  const key = event.key;
+  const keyUpper = event.key.toUpperCase();
+  const index = defaultMap.indexOf(keyUpper); 
 
-    wpm()
-  }
+  if (typingBox.disabled) return;
 
-  function checkInput() {
-    const typingBox = document.getElementById("typing-box");
+  let capsLockOn = event.getModifierState("CapsLock");
+
+  console.log("Key:", key, "Index:", index);
+
+  if (index !== -1) {
+    event.preventDefault(); // stop normal input
+
+    let mappedChar = layouts[currentLayout][index];
+    
+    const shiftPressed = event.shiftKey;
+    const shouldBeUpper = (shiftPressed && !capsLockOn) || (!shiftPressed && capsLockOn);
+
+    if (!shouldBeUpper) {
+      mappedChar = mappedChar.toLowerCase();
+    }
+      typingBox.value += mappedChar;
+
     const typedText = typingBox.value;
-  
-    if (typedText.length >= sampleText.length) {
-      endWPM();
-    }
+    const now = new Date();
+    const elapsedTimeInMinutes = (now - startTime) / 1000 / 60;
+
+    const wordsTyped = typedText.split(/\s+/).length;
+    const wpm = Math.round(wordsTyped / elapsedTimeInMinutes);
+
+    const wpmDisplay = document.getElementById("wpm");
+    wpmDisplay.textContent = `WPM: ${wpm}`;
+
+    checkInput();
   }
-
-  function endWPM() {
-    const typingBox = document.getElementById("typing-box");
-    const result = document.getElementById("result");
-    const endTime = new Date();
-  
-    const typedText = typingBox.value;
-    typingBox.disabled = true;
-  
-    const elapsedTime = (endTime - startTime) / 1000 / 60; 
-    const wordsTyped = sampleText.length / 5; 
-    const wpm = Math.round(wordsTyped / elapsedTime);
-  
-    let correctChars = 0;
-    for (let i = 0; i < typedText.length; i++) {
-      if (typedText[i] === sampleText[i]) {
-        correctChars++;
-      }
-    }
-  
-    const accuracy = ((correctChars / typedText.length) * 100).toFixed(2);
-  
-    document.getElementById("result").innerText = `Accuracy: ${accuracy}%`;
-  
-    typingBox.removeEventListener("input", checkInput);
-  }
-
-  document.addEventListener('keydown', (e) => {
-    const key = e.key.toLowerCase();
-    const keyElement = document.querySelector(`.key[data-key="${key}"]`);
-    if (keyElement) {
-      keyElement.classList.add('active');
-    }
-  });
-
-  document.addEventListener('keyup', (e) => {
-    const key = e.key.toLowerCase();
-    const keyElement = document.querySelector(`.key[data-key="${key}"]`);
-    if (keyElement) {
-      keyElement.classList.remove('active');
-    }
-  });
-
-  // JavaScript
-const clickSounds = [
-  new Audio("sounds/click1.mp3"),
-  new Audio("sounds/click2.mp3"),
-  new Audio("sounds/click3.mp3"),
-  new Audio("sounds/click4.mp3"),
-  new Audio("sounds/click5.mp3")
-];
-
-let currentVolume = 1.0; // Default volume
-
-const volumeSlider = document.getElementById("volume");
-volumeSlider.addEventListener("input", (e) => {
-  currentVolume = parseFloat(e.target.value); // Ensure it's a number
-  console.log("Volume set to:", currentVolume); // Debug check
 });
 
-document.addEventListener("keydown", (e) => {
-  if (e.repeat) return;
+// text samples
+const sampleTexts = {
+  easy: "The quick brown fox jumps over the lazy dog.",
+  medium: "The quick brown fox jumps over the lazy dog. This sentence contains every letter of the alphabet.",
+  hard: "The quick brown fox jumps over the lazy dog. This sentence contains every letter of the alphabet, making it a pangram. It is often used for testing fonts, typing skills, and other similar tasks."
+};
 
-  const randomIndex = Math.floor(Math.random() * clickSounds.length);
-  const sound = clickSounds[randomIndex];
+// update sample based on difficulty
+function updateSampleText() {
+  const difficultySelect = document.getElementById("difficulty");
+  const selectedDifficulty = difficultySelect.value;
+  
+  const sampleTextElement = document.getElementById("sample-text");
+  sampleTextElement.textContent = sampleTexts[selectedDifficulty];
+}
 
-  const soundClone = sound.cloneNode(); // Clone for independent playback
-  soundClone.volume = currentVolume;    // Apply current volume
-  soundClone.play().catch(err => console.error("Play error:", err));
-});
+document.getElementById("difficulty").addEventListener("change", updateSampleText);
+updateSampleText();

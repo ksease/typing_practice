@@ -10,7 +10,7 @@
   <div class="hotbar">
     <a href="resources.html">Resources</a>
     <a href="index.html">Home</a>
-    <a href="#">Contact</a>
+    <a href="contact.html">Contact</a>
   </div>
 
   <h1>Type Zone - A Practice Website</h1>
@@ -26,7 +26,7 @@
     <button onclick="startWPM()">Start WPM Test</button>
     <textarea id="typing-box" placeholder="Start typing here..." rows="5"></textarea>
     <p id="wpm">WPM: 0</p>
-    <p id="result">Accuracy: 0%</p>
+    <p id="accuracy">Accuracy: 0%</p>
   </div>
 
   <div id="keyboard">
@@ -53,6 +53,7 @@
       <div class="key" data-key="j">J</div>
       <div class="key" data-key="k">K</div>
       <div class="key" data-key="l">L</div>
+      <div class="key" data-key=";">;</div>
     </div>
 
     <div class="key-row">
@@ -76,6 +77,13 @@
 <div id="volume-container">
   <label for="volume">Volume:</label>
   <input type="range" id="volume" min="0" max="1" step="0.01" value="1">
+</div>
+
+<div id="layout-switcher">
+  <p>Try a different layout!</p>
+  <button onclick="setLayout('qwerty')">Qwerty</button>
+  <button onclick="setLayout('dvorak')">Dvorak</button>
+  <button onclick="setLayout('colemak')">Colemak</button>
 </div>
 
   <div id="button-field">

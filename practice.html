@@ -2,23 +2,49 @@
 <html>
 <head>
   <title>Typing Practice</title>
-  <link rel="stylesheet" href="stylesheet.css">
-  <script src="script.js"></script>
+  <link rel="stylesheet" href="style2.css">
 </head>
 
 <body>
     <div class="hotbar">
         <a href="resources.html" style="color: white; margin: 0 15px;">Resources</a>
         <a href="index.html" style="color: white; margin: 0 15px;">Home</a>
-        <a href="#" style="color: white; margin: 0 15px;">Contact</a>
+        <a href="contact.html" style="color: white; margin: 0 15px;">Contact</a>
       </div>
 
-<h1> Hello, world. </h1>
+  <h1>Typing Challenge</h1>
+  
+  <!-- Difficulty Selector -->
+  <div class="difficulty-select">
+    <label for="difficulty">Select Difficulty: </label>
+    <select id="difficulty">
+      <option value=""></option>
+      <option value="easy">Easy</option>
+      <option value="medium">Medium</option>
+      <option value="hard">Hard</option>
+    </select>
+  </div>
+  
+  <!-- Not a timer but it should've been :( )-->
+  <div id="timer">Enjoy!</div>
 
+  <div id="typing-container">
+    <h2>Target Text:</h2>
+    <blockquote id="sample-text">
+      The quick brown fox jumps over the lazy dog.
+    </blockquote>
+    <textarea id="typing-box" placeholder="Start typing here..." rows="5"></textarea>
+    <p id="wpm">WPM: 0</p>
+    <p id="accuracy">Accuracy: 0%</p>
+    <button onclick="startWPM()">Start Test</button>
+  </div>
 
 <div id="button-field">
-    <button onclick="location.href='practice.html'">Challenge</button>
+    <button onclick="location.href='index.html'">Home</button>
     <button onclick="location.href='minigame.html'">Mini-Games</button>
     <button onclick="location.href='statistics.html'">Stats</button>
-  </div>
+</div>
+
+  <script src="script.js"></script> 
 </body>
+</html>

@@ -130,4 +130,160 @@
   #button-field button:hover {
     background-color: #2980b9;
   }
+
+  /* Resources Links */ 
+  ul li a {
+    display: block;
+    background-color: white;
+    padding: 10px;
+    margin: 8px auto;
+    border-radius: 5px;
+    color: black;
+    max-width: 600px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+  
+  ul li a:hover {
+    background-color: #5fbfff;
+  }
+  
+  
+  /*Challenge Page*/
+
+  #timer {
+    font-size: 110%;
+    padding: 10px;
+  }
+
+  /* Stats Section */
+.stats-section {
+    margin-bottom: 40px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+    color: #333;
+}
+
+td {
+    background-color: #fafafa;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Previous Races Section */
+.previous-races-section {
+    margin-bottom: 40px;
+}
+
+.previous-races-section table {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.previous-races-section th, .previous-races-section td {
+    padding: 12px;
+    text-align: center;
+}
+
+.previous-races-section th {
+    background-color: #e0e0e0;
+}
+
+.previous-races-section tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.previous-races-section tr:hover {
+    background-color: #d1d1d1;
+}
+
+.contact-section {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .contact-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .contact-section p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  footer {
+    padding: 10px;
+  }
+
+  .finalnote {
+    position: fixed;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #555;
+    background-color: transparent;
+    font-style: italic;
+  }
+
+  .coming-soon {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to right, #222, #333);
+    color: #fff;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .coming-container {
+    text-align: center;
+    padding: 2rem;
+    border: 2px dashed #888;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  
+  .coming-container h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .coming-container h2 {
+    font-size: 2rem;
+    color: #aaa;
+  }
+  
+  .coming-container p {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    color: #ccc;
+  }
   
